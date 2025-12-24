@@ -2,27 +2,31 @@ import React from 'react'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
-const Form = () => {
+const Form = ({setInput,setTasks}) => {
 
-    const [taskId,setTaskId]=useState("")
+    const [taskDescription,setTaskDescription]=useState("")
 
-    const [taskName,setTaskName]=useState("")
+    const [taskTitle,setTaskTitle]=useState("")
 
-    // const[task,setTask]=useState(false)
-
-    const handleIdChange=(e)=>{
-        setTaskId(e.target.value)
+    const handleTitle=(e)=>{
+        setTaskTitle(e.target.value)
     }
 
-    const handleNameChange=(e)=>{
-        setTaskName(e.target.value)
+    const handleDescription=(e)=>{
+        setTaskDescription(e.target.value)
     }
 
     const handleSubmit = (e) => {
-        // setTask(!task)
         e.preventDefault()
-        const newTask={taskId: uuidv4(),taskName: taskName}
-
+        const newTask={
+            taskId: uuidv4(),
+            taskTitle: taskTitle,
+            taskDescription:taskDescription,
+            createdTime: new Date(Date.now()),
+            isCompleted: false
+         }
+        setTasks((prev)=>[...prev,newTask])
+        setInput(false)
     }
 
  
@@ -31,8 +35,8 @@ const Form = () => {
         <>
             <h1>hello form</h1>
             <form onSubmit={handleSubmit}>
-                <input placeholder='enter task id' onChange={handleIdChange}/>
-                <input placeholder='enter task name' onChange={handleNameChange}/>
+                <input placeholder="Enter Task Title" onChange={handleTitle}/>
+                <input placeholder="Enter Task Description" onChange={handleDescription}/>
                 <button type='submit' >add task</button>
             </form>
         </>

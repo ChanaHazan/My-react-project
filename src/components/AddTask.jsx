@@ -5,15 +5,20 @@ import Tasks from './Tasks'
 
 const AddTask = () => {
 
+  const [tasks,setTasks]=useState([])
   const [input,setInput]=useState(false)  
-
-  const handleCreateTask=()=>{
-    setInput(!input)
-  }
 
   return (
     <>
-    {input && <Form/> || <><button onClick={handleCreateTask}>create task</button><Tasks input={input}/></>}
+    {input ? 
+    (<Form 
+     setTasks={setTasks} 
+     setInput={setInput}/> 
+     ):(
+     <><button 
+       onClick={()=>setInput(true)}>create task</button>
+       <Tasks tasks={tasks} setTasks={setTasks}/></>
+    )}
     </>
   )
 }

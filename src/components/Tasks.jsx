@@ -1,17 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
+import Task from './Task';
 
-const Tasks = ({input}) => {
+const Tasks = ({ setTasks, tasks }) => {
 
-  const [tasks,setTasks]=useState([])
-
-  
   return (
     <>
-    <h1>ToDo List</h1>
-    {input && tasks.map(task=><>
-    <input type='checkbox'/>
-    </>)}
+      <h3>ToDoList</h3>
+      {tasks?.map((task) => <>
+        <Task
+          key={task.taskId}
+          task={task}
+          setTasks={setTasks}
+        />
+      </>)}
     </>
   )
 }
